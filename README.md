@@ -40,7 +40,7 @@ Users can interact with MyPlantDiary using either a set of RESTful service endpo
 
 **When**: The user/service searches for the specimen with ID “83”
 
-**Then**: My Plant Diary will return at least one specimen record for "Eastern Redbud".
+**Then**: My Plant Diary will return exactly one specimen record for "Eastern Redbud".
 
 ### Example 
 
