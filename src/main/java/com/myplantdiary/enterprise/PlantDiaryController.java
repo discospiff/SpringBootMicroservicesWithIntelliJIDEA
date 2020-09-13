@@ -34,6 +34,17 @@ public class PlantDiaryController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Fetch a specimen with the given ID.
+     *
+     * Given the parameter id, find a specimen that corresponds to this unique ID.
+     *
+     * Returns one of the following status codes:
+     * 200: specimen found
+     * 400: specimen not found
+     *
+     * @param id a unique identifier for this specimen
+     */
     @GetMapping("/specimen/{id}/")
     public ResponseEntity fetchSpecimenById(@PathVariable("id") String id) {
         return new ResponseEntity(HttpStatus.OK);
