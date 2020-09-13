@@ -39,6 +39,16 @@ public class PlantDiaryController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Create a new specimen object, given the data provided.
+     *
+     * returns one of the following status codes:
+     * 201: successfully created a new specimen.
+     * 409: unable to create a specimen, because it already exists.
+     *
+     * @param sepcimen a JSON representation of a specimen object.
+     * @return the newly created specimen object.
+     */
     @PostMapping(value="/specimen", consumes="application/json", produces="application/json")
     public Specimen createSpecimen(@RequestBody Specimen specimen) {
         return specimen;
