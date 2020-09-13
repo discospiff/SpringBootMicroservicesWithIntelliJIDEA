@@ -1,4 +1,4 @@
-# Spring Boot Microservices With Intelli JIDEA
+# Spring Boot Microservices With IntelliJ IDEA
 
 ## Introduction
 
@@ -33,6 +33,22 @@ Users can interact with MyPlantDiary using either a set of RESTful service endpo
 **When**: The user/service searches for “kajsd;luaopuidfjo;aj;sd”
 
 **Then**: My Plant Diary will not return any results, and the user will not be able to save the specimen.
+
+### Example 
+
+**Given**: Specimen data are available, and specimen 83 is Eastern Redbud.
+
+**When**: The user/service searches for the specimen with ID “83”
+
+**Then**: My Plant Diary will return at least one specimen record for "Eastern Redbud".
+
+### Example 
+
+**Given**: Specimen data are available
+
+**When**: The user/service posts a new Specimen object with valid attributes "latitude=39.74, longitude=-84.51"
+
+**Then**: MyPlantDiary will create a new specimen for this record, and will return this new specimen object.
 
 2.	As a homeowner, I want to be able to upload photos of my plant at any time.
 
