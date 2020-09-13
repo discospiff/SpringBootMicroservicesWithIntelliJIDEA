@@ -7,6 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
+/**
+ * The controller fro Plant Diary REST endpoints and web UI
+ * <p>
+ * This class handles the CRUD operations for My Plant Diary specimens, via HTTP actions.
+ * </p>
+ * <p>
+ * This class also serves HTML based web pages, for UI interactions with plant specimens.
+ * </p>
+ * @author Brandan Jones
+ */
 @Controller
 public class PlantDiaryController {
 
@@ -24,6 +34,17 @@ public class PlantDiaryController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Fetch a specimen with the given ID.
+     *
+     * Given the parameter id, find a specimen that corresponds to this unique ID.
+     *
+     * Returns one of the following status codes:
+     * 200: specimen found
+     * 400: specimen not found
+     *
+     * @param id a unique identifier for this specimen
+     */
     @GetMapping("/specimen/{id}/")
     public ResponseEntity fetchSpecimenById(@PathVariable("id") String id) {
         return new ResponseEntity(HttpStatus.OK);
