@@ -97,7 +97,7 @@ Users can interact with MyPlantDiary using either a set of RESTful service endpo
 
 ## Class Diagram
 
-![PlantsClassDiagram](https://user-images.githubusercontent.com/2224876/91670720-1691ee80-eaee-11ea-84f9-fb74bb8b27d1.png)
+![MyPlantDiaryClassDiagram](https://user-images.githubusercontent.com/2224876/93275565-40ecd880-f78b-11ea-8030-cd87987b1817.png)
 
 ### Class Diagram Description 
 
