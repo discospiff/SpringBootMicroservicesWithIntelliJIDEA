@@ -2,6 +2,8 @@ package com.myplantdiary.enterprise.service;
 
 import com.myplantdiary.enterprise.dto.Specimen;
 
+import java.util.List;
+
 public interface ISpecimenService {
     /**
      * Fetch a specimen with a given ID.
@@ -12,4 +14,5 @@ public interface ISpecimenService {
 
     Specimen save(Specimen specimen) throws Exception;
 
+    List<Specimen> fetchAll();
 }
