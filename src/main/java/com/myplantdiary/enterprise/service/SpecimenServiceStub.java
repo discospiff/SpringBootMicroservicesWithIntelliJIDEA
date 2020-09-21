@@ -24,10 +24,13 @@ public class SpecimenServiceStub implements ISpecimenService {
 
     @Override
     public Specimen fetchById(int id) {
-        Specimen specimen = new Specimen();
-        specimen.setDescription("Eastern Redbud");
-        specimen.setSpecimenId("83");
-        return specimen;
+        Specimen foundSpecimen = specimenDAO.fetch(id);
+        return foundSpecimen;
+    }
+
+    @Override
+    public void delete(int id) throws Exception {
+        specimenDAO.delete(id);
     }
 
     @Override

@@ -3,7 +3,9 @@ package com.myplantdiary.enterprise;
 import com.myplantdiary.enterprise.dto.Specimen;
 import com.myplantdiary.enterprise.service.ISpecimenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +57,10 @@ public class PlantDiaryController {
      */
     @GetMapping("/specimen/{id}/")
     public ResponseEntity fetchSpecimenById(@PathVariable("id") String id) {
-        return new ResponseEntity(HttpStatus.OK);
+        Specimen foundSpecimen = specimenService.fetchById(Integer.parseInt(id));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity(foundSpecimen, headers, HttpStatus.OK);
     }
 
     /**
@@ -69,6 +74,7 @@ public class PlantDiaryController {
      * @return the newly created specimen object.
      */
     @PostMapping(value="/specimen", consumes="application/json", produces="application/json")
+    @ResponseBody
     public Specimen createSpecimen(@RequestBody Specimen specimen) {
         Specimen newSpecimen = null;
         try {
@@ -81,7 +87,13 @@ public class PlantDiaryController {
 
     @DeleteMapping("/specimen/{id}/")
     public ResponseEntity deleteSpecimen(@PathVariable("id") String id) {
-        return new ResponseEntity(HttpStatus.OK);
+        try {
+            specimenService.delete(Integer.parseInt(id));
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
 
