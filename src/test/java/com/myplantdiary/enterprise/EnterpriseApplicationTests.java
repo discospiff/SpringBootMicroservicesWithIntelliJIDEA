@@ -75,4 +75,9 @@ class EnterpriseApplicationTests {
         verify(specimenDAO, atLeastOnce()).save(specimen);
     }
 
+    @Test
+    void thisTest_ShouldFail() {
+        assertEquals(4, 1+2);
+    }
+
 }
