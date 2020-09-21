@@ -1,10 +1,16 @@
 package com.myplantdiary.enterprise;
 
 import com.myplantdiary.enterprise.dto.Specimen;
+import com.myplantdiary.enterprise.service.ISpecimenService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 /**
@@ -20,6 +26,9 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class PlantDiaryController {
 
+    @Autowired
+    ISpecimenService specimenService;
+
     /**
      * Handle the root (/) endpoint and return a start page.
      * @return
@@ -30,8 +39,9 @@ public class PlantDiaryController {
     }
 
     @GetMapping("/specimen")
-    public ResponseEntity fetchAllSpecimens() {
-        return new ResponseEntity(HttpStatus.OK);
+    @ResponseBody
+    public List<Specimen> fetchAllSpecimens() {
+        return specimenService.fetchAll();
     }
 
     /**
@@ -47,7 +57,10 @@ public class PlantDiaryController {
      */
     @GetMapping("/specimen/{id}/")
     public ResponseEntity fetchSpecimenById(@PathVariable("id") String id) {
-        return new ResponseEntity(HttpStatus.OK);
+        Specimen foundSpecimen = specimenService.fetchById(Integer.parseInt(id));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity(foundSpecimen, headers, HttpStatus.OK);
     }
 
     /**
@@ -57,17 +70,30 @@ public class PlantDiaryController {
      * 201: successfully created a new specimen.
      * 409: unable to create a specimen, because it already exists.
      *
-     * @param sepcimen a JSON representation of a specimen object.
+     * @param specimen a JSON representation of a specimen object.
      * @return the newly created specimen object.
      */
     @PostMapping(value="/specimen", consumes="application/json", produces="application/json")
+    @ResponseBody
     public Specimen createSpecimen(@RequestBody Specimen specimen) {
-        return specimen;
+        Specimen newSpecimen = null;
+        try {
+            newSpecimen = specimenService.save(specimen);
+        } catch (Exception e) {
+            // TODO add logging
+        }
+        return newSpecimen;
     }
 
     @DeleteMapping("/specimen/{id}/")
     public ResponseEntity deleteSpecimen(@PathVariable("id") String id) {
-        return new ResponseEntity(HttpStatus.OK);
+        try {
+            specimenService.delete(Integer.parseInt(id));
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
 
