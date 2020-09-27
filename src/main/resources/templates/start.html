@@ -5,7 +5,22 @@
     <title>My Plant Diary</title>
 </head>
 <body>
-Plants are wonderful things!
-<p th:text="${specimen}" />
+    <form action="#" th:action="@{/plants}"  method="GET">
+        <Label for="searchTerm">Search</Label><input type="text"  name="searchTerm" id="searchTerm"/>
+        <button name="submit" type="submit" value="0">Search</button>
+    </form>
+
+
+    Plants are wonderful things!
+    <p th:text="${specimen}" />
+
+    <form action="#" th:action="@{/saveSpecimen}" th:object="${specimen}" method="GET"><br />
+        <label>Latitude</label><input type="text" name="latitude" th:field="*{latitude}"/><br />
+        <label>Longitude</label><input type="text" name="longitude" th:field="*{longitude}"/><br />
+        <label>Description</label><input type="text" name="description" th:field="*{description}"/><br />
+        <label>Plant</label><input type="text" name="plantId" th:field="*{plantId}"/><br />
+        <label>Specimen</label><input type="text" name="specimenId" th:field="*{specimenId}"/><br />
+        <button name="submit" type="submit" value="0">Submit</button>
+    </form>
 </body>
 </html>

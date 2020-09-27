@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -43,6 +44,17 @@ public class PlantDiaryController {
         specimen.setSpecimenId("1003");
         specimen.setPlantId(84);
         model.addAttribute(specimen);
+        return "start";
+    }
+
+    @RequestMapping("/saveSpecimen")
+    public String saveSpecimen(Specimen specimen) {
+        try {
+            specimenService.save(specimen);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "start";
+        }
         return "start";
     }
 
@@ -102,6 +114,11 @@ public class PlantDiaryController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @GetMapping("/plants")
+    public ResponseEntity searchPlants(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm) {
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 
