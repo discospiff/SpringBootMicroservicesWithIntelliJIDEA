@@ -121,5 +121,14 @@ public class PlantDiaryController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Handle the sustainabilty endpoint and return a start page.
+     * @return
+     */
+    @RequestMapping("/sustainability")
+    public String sustainability() {
+        return "sustainability";
+    }
+
 
 }
