@@ -12,11 +12,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </head>
 <body>
-    <form action="#" th:action="@{/plants}"  method="GET">
-        <Label for="searchTerm">Search</Label><input type="text"  name="searchTerm" id="searchTerm"/>
-        <button name="submit" type="submit" value="0">Search</button>
-    </form>
-
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand">My Plant Diary</a>
+        <form class="form-inline" action="#" th:action="@{/plants}"  method="GET">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"  name="searchTerm" id="searchTerm">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
 
     Plants are wonderful things!
     <p th:text="${specimen}" />
