@@ -1,5 +1,6 @@
 package com.myplantdiary.enterprise;
 
+import com.myplantdiary.enterprise.dto.Plant;
 import com.myplantdiary.enterprise.dto.Specimen;
 import com.myplantdiary.enterprise.service.ISpecimenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -118,8 +120,19 @@ public class PlantDiaryController {
 
     @GetMapping("/plants")
     public ResponseEntity searchPlants(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm) {
-        return new ResponseEntity(HttpStatus.OK);
+        try {
+            List<Plant> plants = specimenService.fetchPlants(searchTerm);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity(plants, headers, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
+
+
 
     /**
      * Handle the sustainabilty endpoint and return a start page.
