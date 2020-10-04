@@ -41,7 +41,7 @@ public class PlantDiaryController {
         specimen.setDescription("Pawpaw fruit season");
         specimen.setLatitude("39.74");
         specimen.setLongitude("-84.51");
-        specimen.setSpecimenId("1003");
+        specimen.setSpecimenId(1003);
         specimen.setPlantId(84);
         model.addAttribute(specimen);
         return "start";
@@ -76,8 +76,8 @@ public class PlantDiaryController {
      * @param id a unique identifier for this specimen
      */
     @GetMapping("/specimen/{id}/")
-    public ResponseEntity fetchSpecimenById(@PathVariable("id") String id) {
-        Specimen foundSpecimen = specimenService.fetchById(Integer.parseInt(id));
+    public ResponseEntity fetchSpecimenById(@PathVariable("id") int id) {
+        Specimen foundSpecimen = specimenService.fetchById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity(foundSpecimen, headers, HttpStatus.OK);
@@ -106,9 +106,9 @@ public class PlantDiaryController {
     }
 
     @DeleteMapping("/specimen/{id}/")
-    public ResponseEntity deleteSpecimen(@PathVariable("id") String id) {
+    public ResponseEntity deleteSpecimen(@PathVariable("id") int id) {
         try {
-            specimenService.delete(Integer.parseInt(id));
+            specimenService.delete(id);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
