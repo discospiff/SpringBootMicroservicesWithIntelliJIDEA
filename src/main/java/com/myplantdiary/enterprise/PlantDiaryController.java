@@ -118,7 +118,7 @@ public class PlantDiaryController {
 
     }
 
-    @GetMapping("/plants")
+    @GetMapping(value="/plants", consumes="application/json", produces="application/json")
     public ResponseEntity searchPlants(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm) {
         try {
             List<Plant> plants = specimenService.fetchPlants(searchTerm);
@@ -132,6 +132,18 @@ public class PlantDiaryController {
 
     }
 
+    @GetMapping("/plants")
+    public String searchPlantsForm(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
+        try {
+            List<Plant> plants = specimenService.fetchPlants(searchTerm);
+            model.addAttribute("plants", plants);
+            return "plants";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "error";
+        }
+
+    }
 
 
     /**

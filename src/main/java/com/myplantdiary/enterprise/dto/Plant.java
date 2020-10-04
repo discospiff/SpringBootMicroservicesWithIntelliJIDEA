@@ -27,4 +27,8 @@ class Plant {
     private Integer partShade;
     @SerializedName("deepShade")
     private Integer deepShade;
+
+    public String toString() {
+        return genus + " " + species + " " + cultivar + " " + id;
+    }
 }
