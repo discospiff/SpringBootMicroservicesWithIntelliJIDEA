@@ -38,7 +38,7 @@ class EnterpriseApplicationTests {
 
     private void whenSpecimen83AddedIsRedbud() {
         Specimen redbud = new Specimen();
-        redbud.setSpecimenId("83");
+        redbud.setSpecimenId(83);
         redbud.setDescription("Eastern Redbud");
         Mockito.when(specimenDAO.fetch(83)).thenReturn(redbud);
     }

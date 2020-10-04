@@ -5,7 +5,7 @@ import lombok.Data;
 public @Data
 class Specimen {
     private int plantId;
-    private String specimenId;
+    private int specimenId;
     private String latitude;
     private String longitude;
     private String description;
