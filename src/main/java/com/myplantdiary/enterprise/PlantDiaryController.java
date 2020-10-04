@@ -1,5 +1,6 @@
 package com.myplantdiary.enterprise;
 
+import com.myplantdiary.enterprise.dto.Plant;
 import com.myplantdiary.enterprise.dto.Specimen;
 import com.myplantdiary.enterprise.service.ISpecimenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -116,10 +118,33 @@ public class PlantDiaryController {
 
     }
 
-    @GetMapping("/plants")
+    @GetMapping(value="/plants", consumes="application/json", produces="application/json")
     public ResponseEntity searchPlants(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm) {
-        return new ResponseEntity(HttpStatus.OK);
+        try {
+            List<Plant> plants = specimenService.fetchPlants(searchTerm);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity(plants, headers, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
+
+    @GetMapping("/plants")
+    public String searchPlantsForm(@RequestParam(value="searchTerm", required=false, defaultValue="None")  String searchTerm, Model model) {
+        try {
+            List<Plant> plants = specimenService.fetchPlants(searchTerm);
+            model.addAttribute("plants", plants);
+            return "plants";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "error";
+        }
+
+    }
+
 
     /**
      * Handle the sustainabilty endpoint and return a start page.
