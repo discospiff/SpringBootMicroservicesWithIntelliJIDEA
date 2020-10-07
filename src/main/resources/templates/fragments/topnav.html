@@ -12,7 +12,14 @@
             </ul>
         </div>
         <form class="form-inline" action="#" th:action="@{/plants}"  method="GET">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"  name="searchTerm" id="searchTerm">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"  name="searchTerm" id="searchTerm" list="Plant_Search">
+            <datalist id="Plant_Search">
+                <option value="Oak">Quercus</option>
+                <option value="Maple">Acer</option>
+                <option value="Pine">Pinus</option>
+                <option value="Spruce">Abies</option>
+                <option value="Oak Leaved Hydrangea">Hydrangea</option>
+            </datalist>
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </nav>
