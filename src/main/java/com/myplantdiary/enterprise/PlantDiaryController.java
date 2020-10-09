@@ -1,5 +1,6 @@
 package com.myplantdiary.enterprise;
 
+import com.myplantdiary.enterprise.dto.LabelValue;
 import com.myplantdiary.enterprise.dto.Plant;
 import com.myplantdiary.enterprise.dto.Specimen;
 import com.myplantdiary.enterprise.service.ISpecimenService;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -153,6 +155,25 @@ public class PlantDiaryController {
     @RequestMapping("/sustainability")
     public String sustainability() {
         return "sustainability";
+    }
+
+    @GetMapping("/plantNamesAutocomplete")
+    @ResponseBody
+    public List<LabelValue> plantNamesAutocomplete(@RequestParam(value="term", required = false, defaultValue="") String term) {
+        List<LabelValue> allPlantNames = new ArrayList<LabelValue>();
+        try {
+            List<Plant> plants = specimenService.fetchPlants(term);
+            for (Plant plant: plants) {
+                LabelValue labelValue = new LabelValue();
+                labelValue.setLabel(plant.toString());
+                labelValue.setValue(plant.getId());
+                allPlantNames.add(labelValue);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<LabelValue>();
+        }
+        return allPlantNames;
     }
 
 

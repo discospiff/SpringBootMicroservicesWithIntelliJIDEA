@@ -18,8 +18,13 @@
     <script type="text/javascript">
         $(function() {
             $("#Plant_Name").autocomplete({
-               source: ["Eastern Redbud", "Eastern White Pine", "Eastern Red Cedar"],
-                minLength: 2
+               source: "plantNamesAutocomplete",
+                minLength: 3,
+                select: function(event, ui) {
+                   this.value = ui.item.label;
+                   $("#Plant_Id").val(ui.item.value);
+                   return false;
+                }
             });
         });
     </script>
@@ -55,7 +60,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="plant">Plant</span>
             </div>
-            <input id="Plant_Name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="plantId" th:field="*{plantId}"/>
+            <input id="Plant_Name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="plantName" />
         </div>
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
@@ -64,6 +69,7 @@
             <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="specimenId" th:field="*{specimenId}"/>
         </div>
         <button name="submit" type="submit" value="0">Submit</button>
+        <input id="Plant_Id" type="hidden" name="plantId" th:field="*{plantId}"/>
     </form>
 </body>
 </html>

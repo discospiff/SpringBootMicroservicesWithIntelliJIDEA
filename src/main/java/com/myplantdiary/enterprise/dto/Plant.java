@@ -29,6 +29,6 @@ class Plant {
     private Integer deepShade;
 
     public String toString() {
-        return genus + " " + species + " " + cultivar + " " + id;
+        return common + " " + genus + " " + species + " " + cultivar;
     }
 }
