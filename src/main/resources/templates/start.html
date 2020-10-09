@@ -10,6 +10,24 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script type="text/javascript">
+        $(function() {
+            $("#Plant_Name").autocomplete({
+               source: "plantNamesAutocomplete",
+                minLength: 3,
+                select: function(event, ui) {
+                   this.value = ui.item.label;
+                   $("#Plant_Id").val(ui.item.value);
+                   return false;
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <div th:replace="fragments/topnav :: navbar">
@@ -42,7 +60,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="plant">Plant</span>
             </div>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="plantId" th:field="*{plantId}"/>
+            <input id="Plant_Name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="plantName" />
         </div>
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
@@ -51,6 +69,7 @@
             <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="specimenId" th:field="*{specimenId}"/>
         </div>
         <button name="submit" type="submit" value="0">Submit</button>
+        <input id="Plant_Id" type="hidden" name="plantId" th:field="*{plantId}"/>
     </form>
 </body>
 </html>
