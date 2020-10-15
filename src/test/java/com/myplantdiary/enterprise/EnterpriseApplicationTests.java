@@ -3,10 +3,9 @@ package com.myplantdiary.enterprise;
 import com.myplantdiary.enterprise.dao.ISpecimenDAO;
 import com.myplantdiary.enterprise.dto.Specimen;
 import com.myplantdiary.enterprise.service.ISpecimenService;
-import com.myplantdiary.enterprise.service.SpecimenServiceStub;
+import com.myplantdiary.enterprise.service.SpecimenService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -45,7 +44,7 @@ class EnterpriseApplicationTests {
 
     private void givenSpecimenDataAreAvailable() throws Exception {
         Mockito.when(specimenDAO.save(specimen)).thenReturn(specimen);
-        specimenService = new SpecimenServiceStub(specimenDAO);
+        specimenService = new SpecimenService(specimenDAO);
     }
 
     private void whenSearchSpecimenWithID83() {

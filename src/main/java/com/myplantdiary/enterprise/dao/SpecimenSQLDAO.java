@@ -4,6 +4,7 @@ import com.myplantdiary.enterprise.dto.Specimen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository("specimenDAO")
@@ -21,16 +22,21 @@ public class SpecimenSQLDAO implements ISpecimenDAO {
 
     @Override
     public List<Specimen> fetchAll() {
-        return null;
+        List<Specimen> allSpecimens = new ArrayList<>();
+        Iterable<Specimen> specimens = specimenRepository.findAll();
+        for (Specimen specimen : specimens) {
+            allSpecimens.add(specimen);
+        }
+        return allSpecimens;
     }
 
     @Override
     public Specimen fetch(int id) {
-        return null;
+        return  specimenRepository.findById(id).get();
     }
 
     @Override
     public void delete(int id) {
-
+        specimenRepository.deleteById(id);
     }
 }
