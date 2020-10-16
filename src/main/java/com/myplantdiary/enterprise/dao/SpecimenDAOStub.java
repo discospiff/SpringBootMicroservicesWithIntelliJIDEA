@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-@Profile("dev")
+@Profile("test")
 public class SpecimenDAOStub implements ISpecimenDAO {
 
     Map<Integer, Specimen> allSpecimens = new HashMap<>();

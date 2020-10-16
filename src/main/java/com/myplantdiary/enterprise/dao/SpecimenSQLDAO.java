@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository("specimenDAO")
-@Profile("test")
+@Profile("dev")
 public class SpecimenSQLDAO implements ISpecimenDAO {
 
     @Autowired
