@@ -2,12 +2,14 @@ package com.myplantdiary.enterprise.dao;
 
 import com.myplantdiary.enterprise.dto.Specimen;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository("specimenDAO")
+@Profile("test")
 public class SpecimenSQLDAO implements ISpecimenDAO {
 
     @Autowired
