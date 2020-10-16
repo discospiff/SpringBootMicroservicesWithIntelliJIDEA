@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository("specimenDAO")
+@Repository
 @Profile("dev")
 public class SpecimenSQLDAO implements ISpecimenDAO {
 
