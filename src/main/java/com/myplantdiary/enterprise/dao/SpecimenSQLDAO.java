@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@Profile("dev")
+@Profile({"dev", "default"})
 public class SpecimenSQLDAO implements ISpecimenDAO {
 
     @Autowired
@@ -19,7 +19,6 @@ public class SpecimenSQLDAO implements ISpecimenDAO {
     public Specimen save(Specimen specimen) throws Exception {
         Specimen createdSpecimen = specimenRepository.save(specimen);
         return createdSpecimen;
-
     }
 
     @Override
