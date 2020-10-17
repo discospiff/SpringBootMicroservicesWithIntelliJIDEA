@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
-public class SpecimenServiceStub implements ISpecimenService {
+public class SpecimenService implements ISpecimenService {
 
     @Autowired
     private ISpecimenDAO specimenDAO;
@@ -19,11 +19,11 @@ public class SpecimenServiceStub implements ISpecimenService {
     @Autowired
     private IPlantDAO plantDAO;
 
-    public SpecimenServiceStub() {
+    public SpecimenService() {
 
     }
 
-    public SpecimenServiceStub(ISpecimenDAO specimenDAO) {
+    public SpecimenService(ISpecimenDAO specimenDAO) {
 
         this.specimenDAO = specimenDAO;
     }

@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface IPlantRetrofitDAO {
 
-    @GET("/perl/mobile/viewplantsjsonarray.pl")
+    @GET("/plants.json")
     Call<List<Plant>> getPlants(@Query("Combined_Name") String combinedName);
 }

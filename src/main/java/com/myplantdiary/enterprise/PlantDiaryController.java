@@ -4,6 +4,7 @@ import com.myplantdiary.enterprise.dto.LabelValue;
 import com.myplantdiary.enterprise.dto.Plant;
 import com.myplantdiary.enterprise.dto.Specimen;
 import com.myplantdiary.enterprise.service.ISpecimenService;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -51,13 +52,13 @@ public class PlantDiaryController {
         return "start";
     }
 
-    @RequestMapping("/saveSpecimen")
+    @PostMapping("/saveSpecimen")
     public String saveSpecimen(Specimen specimen) {
         try {
             specimenService.save(specimen);
         } catch (Exception e) {
             e.printStackTrace();
-            return "start";
+            return "error";
         }
         return "start";
     }
@@ -98,15 +99,17 @@ public class PlantDiaryController {
      * @return the newly created specimen object.
      */
     @PostMapping(value="/specimen", consumes="application/json", produces="application/json")
-    @ResponseBody
-    public Specimen createSpecimen(@RequestBody Specimen specimen) {
+    public ResponseEntity createSpecimen(@RequestBody Specimen specimen) {
         Specimen newSpecimen = null;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
         try {
             newSpecimen = specimenService.save(specimen);
         } catch (Exception e) {
-            // TODO add logging
+
+            return new ResponseEntity(headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return newSpecimen;
+        return new ResponseEntity(newSpecimen, headers, HttpStatus.OK);
     }
 
     @DeleteMapping("/specimen/{id}/")

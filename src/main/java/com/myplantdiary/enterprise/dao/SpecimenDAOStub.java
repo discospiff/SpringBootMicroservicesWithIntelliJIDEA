@@ -1,6 +1,7 @@
 package com.myplantdiary.enterprise.dao;
 
 import com.myplantdiary.enterprise.dto.Specimen;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
+@Profile("test")
 public class SpecimenDAOStub implements ISpecimenDAO {
 
     Map<Integer, Specimen> allSpecimens = new HashMap<>();
