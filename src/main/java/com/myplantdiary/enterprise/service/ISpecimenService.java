@@ -25,4 +25,6 @@ public interface ISpecimenService {
     List<Plant> fetchPlants(String combinedName) throws IOException;
 
     void saveImage(MultipartFile imageFile, Photo photo) throws IOException;
+
+    List<Specimen> fetchSpecimensByPlantId(int plantId);
 }
