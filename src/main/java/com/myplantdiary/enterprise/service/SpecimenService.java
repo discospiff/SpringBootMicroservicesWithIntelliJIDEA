@@ -1,7 +1,9 @@
 package com.myplantdiary.enterprise.service;
 
+import com.myplantdiary.enterprise.dao.IPhotoDAO;
 import com.myplantdiary.enterprise.dao.IPlantDAO;
 import com.myplantdiary.enterprise.dao.ISpecimenDAO;
+import com.myplantdiary.enterprise.dto.Photo;
 import com.myplantdiary.enterprise.dto.Plant;
 import com.myplantdiary.enterprise.dto.Specimen;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class SpecimenService implements ISpecimenService {
 
     @Autowired
     private IPlantDAO plantDAO;
+
+    @Autowired
+    private IPhotoDAO photoDAO;
 
     public SpecimenService() {
 
@@ -65,11 +70,9 @@ public class SpecimenService implements ISpecimenService {
     }
 
     @Override
-    public void saveImage(MultipartFile imageFile) throws IOException {
-        String folder = "/photos/";
-        byte[] bytes = imageFile.getBytes();
-        Path path = Paths.get(folder + imageFile.getOriginalFilename());
-        Files.write(path, bytes);
+    public void saveImage(MultipartFile imageFile, Photo photo) throws IOException {
+        photoDAO.save(photo);
+        photoDAO.saveImage(imageFile);
 
     }
 }

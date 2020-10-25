@@ -1,6 +1,7 @@
 package com.myplantdiary.enterprise;
 
 import com.myplantdiary.enterprise.dto.LabelValue;
+import com.myplantdiary.enterprise.dto.Photo;
 import com.myplantdiary.enterprise.dto.Plant;
 import com.myplantdiary.enterprise.dto.Specimen;
 import com.myplantdiary.enterprise.service.ISpecimenService;
@@ -50,17 +51,6 @@ public class PlantDiaryController {
         specimen.setSpecimenId(1003);
         specimen.setPlantId(84);
         model.addAttribute(specimen);
-        return "start";
-    }
-
-    @PostMapping("/saveSpecimen")
-    public String saveSpecimen(Specimen specimen) {
-        try {
-            specimenService.save(specimen);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "error";
-        }
         return "start";
     }
 
@@ -180,13 +170,22 @@ public class PlantDiaryController {
         return allPlantNames;
     }
 
-    @PostMapping("/uploadImage")
-    public String uploadImage(@RequestParam("imageFile") MultipartFile imageFile, Model model) {
+    @PostMapping("/saveSpecimen")
+    public String saveSpecimen(Specimen specimen, @RequestParam("imageFile") MultipartFile imageFile, Model model) {
         String returnValue = "start";
+        try {
+            specimenService.save(specimen);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
 
         try {
-            specimenService.saveImage(imageFile);
-            Specimen specimen = new Specimen();
+            Photo photo = new Photo();
+            photo.setFileName(imageFile.getOriginalFilename());
+            photo.setPath("/photo/");
+            photo.setSpecimen(specimen);
+            specimenService.saveImage(imageFile, photo);
             model.addAttribute("specimen", specimen);
             returnValue = "start";
         } catch (IOException e) {

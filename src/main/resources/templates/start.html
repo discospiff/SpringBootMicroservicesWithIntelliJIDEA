@@ -37,7 +37,7 @@
     Plants are wonderful things!
     <p th:text="${specimen}" />
 
-    <form action="#" th:action="@{/saveSpecimen}" th:object="${specimen}" method="POST"><br />
+    <form action="#" th:action="@{/saveSpecimen}" th:object="${specimen}" enctype="multipart/form-data"  method="POST"><br />
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="latitude">Latitude</span>
@@ -62,18 +62,9 @@
             </div>
             <input id="Plant_Name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="plantName" />
         </div>
-        <div class="input-group input-group-sm mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="specimen">Specimen</span>
-            </div>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="specimenId" th:field="*{specimenId}"/>
-        </div>
-        <button name="submit" type="submit" value="0">Submit</button>
         <input id="Plant_Id" type="hidden" name="plantId" th:field="*{plantId}"/>
-    </form>
-    <form method="post" enctype="multipart/form-data" action="/uploadImage">
-        <input type="file" name="imageFile"/>
-        <input type="submit" value="Upload"/>
+       <input type="file" name="imageFile"/>
+        <button name="submit" type="submit" value="0">Submit</button>
     </form>
 </body>
 </html>
