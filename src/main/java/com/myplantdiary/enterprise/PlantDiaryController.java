@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -171,27 +172,31 @@ public class PlantDiaryController {
     }
 
     @PostMapping("/saveSpecimen")
-    public String saveSpecimen(Specimen specimen, @RequestParam("imageFile") MultipartFile imageFile, Model model) {
+    public ModelAndView saveSpecimen(Specimen specimen, @RequestParam("imageFile") MultipartFile imageFile, Model model) {
         String returnValue = "start";
+        ModelAndView modelAndView = new ModelAndView();
         try {
             specimenService.save(specimen);
         } catch (Exception e) {
             e.printStackTrace();
-            return "error";
+            modelAndView.setViewName("error");
+            return modelAndView;
         }
 
+        Photo photo = new Photo();
         try {
-            Photo photo = new Photo();
             photo.setFileName(imageFile.getOriginalFilename());
-            photo.setPath("/photo/");
             photo.setSpecimen(specimen);
             specimenService.saveImage(imageFile, photo);
             model.addAttribute("specimen", specimen);
-            returnValue = "start";
+            modelAndView.setViewName("success");
         } catch (IOException e) {
             e.printStackTrace();
-            returnValue = "error";
+            modelAndView.setViewName("error");
+            return modelAndView;
         }
-        return returnValue;
+        modelAndView.addObject("photo", photo);
+        modelAndView.addObject("speicmen", specimen);
+        return modelAndView;
     }
 }

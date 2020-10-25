@@ -72,7 +72,7 @@ public class SpecimenService implements ISpecimenService {
     @Override
     public void saveImage(MultipartFile imageFile, Photo photo) throws IOException {
         photoDAO.save(photo);
-        photoDAO.saveImage(imageFile);
+        photoDAO.saveImage(imageFile, photo);
 
     }
 }

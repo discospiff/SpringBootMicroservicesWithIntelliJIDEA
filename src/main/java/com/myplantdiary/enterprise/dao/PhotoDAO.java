@@ -22,10 +22,12 @@ public class PhotoDAO implements IPhotoDAO {
     }
 
     @Override
-    public void saveImage(MultipartFile imageFile) throws IOException {
-        String folder = "/photos/";
+    public void saveImage(MultipartFile imageFile, Photo photo) throws IOException {
+        Path currentPath = Paths.get(".");
+        Path absolutePath = currentPath.toAbsolutePath();
+        photo.setPath(absolutePath + "/src/main/resources/static/photos/");
         byte[] bytes = imageFile.getBytes();
-        Path path = Paths.get(folder + imageFile.getOriginalFilename());
+        Path path = Paths.get(photo.getPath() + imageFile.getOriginalFilename());
         Files.write(path, bytes);
 
     }
