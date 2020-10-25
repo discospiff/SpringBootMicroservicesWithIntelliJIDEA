@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -179,5 +180,19 @@ public class PlantDiaryController {
         return allPlantNames;
     }
 
+    @PostMapping("/uploadImage")
+    public String uploadImage(@RequestParam("imageFile") MultipartFile imageFile, Model model) {
+        String returnValue = "start";
 
+        try {
+            specimenService.saveImage(imageFile);
+            Specimen specimen = new Specimen();
+            model.addAttribute("specimen", specimen);
+            returnValue = "start";
+        } catch (IOException e) {
+            e.printStackTrace();
+            returnValue = "error";
+        }
+        return returnValue;
+    }
 }

@@ -71,5 +71,9 @@
         <button name="submit" type="submit" value="0">Submit</button>
         <input id="Plant_Id" type="hidden" name="plantId" th:field="*{plantId}"/>
     </form>
+    <form method="post" enctype="multipart/form-data" action="/uploadImage">
+        <input type="file" name="imageFile"/>
+        <input type="submit" value="Upload"/>
+    </form>
 </body>
 </html>
