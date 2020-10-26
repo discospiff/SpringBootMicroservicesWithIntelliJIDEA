@@ -12,4 +12,6 @@ public interface ISpecimenDAO {
     Specimen fetch(int id);
 
     void delete(int id);
+
+    List<Specimen> fetchSpecimensByPlantId(int plantId);
 }

@@ -37,4 +37,9 @@ public class SpecimenDAOStub implements ISpecimenDAO {
         allSpecimens.remove(id);
 
     }
+
+    @Override
+    public List<Specimen> fetchSpecimensByPlantId(int plantId) {
+        return new ArrayList<Specimen>();
+    }
 }

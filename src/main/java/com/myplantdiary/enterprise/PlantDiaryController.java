@@ -1,6 +1,7 @@
 package com.myplantdiary.enterprise;
 
 import com.myplantdiary.enterprise.dto.LabelValue;
+import com.myplantdiary.enterprise.dto.Photo;
 import com.myplantdiary.enterprise.dto.Plant;
 import com.myplantdiary.enterprise.dto.Specimen;
 import com.myplantdiary.enterprise.service.ISpecimenService;
@@ -13,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,17 +52,6 @@ public class PlantDiaryController {
         specimen.setSpecimenId(1003);
         specimen.setPlantId(84);
         model.addAttribute(specimen);
-        return "start";
-    }
-
-    @PostMapping("/saveSpecimen")
-    public String saveSpecimen(Specimen specimen) {
-        try {
-            specimenService.save(specimen);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "error";
-        }
         return "start";
     }
 
@@ -179,5 +171,42 @@ public class PlantDiaryController {
         return allPlantNames;
     }
 
+    @PostMapping("/saveSpecimen")
+    public ModelAndView saveSpecimen(Specimen specimen, @RequestParam("imageFile") MultipartFile imageFile, Model model) {
+        String returnValue = "start";
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            specimenService.save(specimen);
+        } catch (Exception e) {
+            e.printStackTrace();
+            modelAndView.setViewName("error");
+            return modelAndView;
+        }
 
+        Photo photo = new Photo();
+        try {
+            photo.setFileName(imageFile.getOriginalFilename());
+            photo.setSpecimen(specimen);
+            specimenService.saveImage(imageFile, photo);
+            model.addAttribute("specimen", specimen);
+            modelAndView.setViewName("success");
+        } catch (IOException e) {
+            e.printStackTrace();
+            modelAndView.setViewName("error");
+            return modelAndView;
+        }
+        modelAndView.addObject("photo", photo);
+        modelAndView.addObject("speicmen", specimen);
+        return modelAndView;
+    }
+
+    @GetMapping("/specimensByPlant/{plantId}/")
+    public ModelAndView specimensByPlant(@PathVariable("plantId") int plantId) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("specimenDetails");
+        List<Specimen> specimens = specimenService.fetchSpecimensByPlantId(plantId);
+        modelAndView.addObject("specimens", specimens);
+        return  modelAndView;
+
+    }
 }

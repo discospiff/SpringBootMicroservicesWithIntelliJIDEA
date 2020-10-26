@@ -1,7 +1,9 @@
 package com.myplantdiary.enterprise.service;
 
+import com.myplantdiary.enterprise.dto.Photo;
 import com.myplantdiary.enterprise.dto.Plant;
 import com.myplantdiary.enterprise.dto.Specimen;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,4 +23,8 @@ public interface ISpecimenService {
     List<Specimen> fetchAll();
 
     List<Plant> fetchPlants(String combinedName) throws IOException;
+
+    void saveImage(MultipartFile imageFile, Photo photo) throws IOException;
+
+    List<Specimen> fetchSpecimensByPlantId(int plantId);
 }

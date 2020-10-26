@@ -40,4 +40,9 @@ public class SpecimenSQLDAO implements ISpecimenDAO {
     public void delete(int id) {
         specimenRepository.deleteById(id);
     }
+
+    @Override
+    public List<Specimen> fetchSpecimensByPlantId(int plantId) {
+        return specimenRepository.findByPlantId(plantId);
+    }
 }

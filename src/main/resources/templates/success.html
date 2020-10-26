@@ -66,5 +66,6 @@
        <input type="file" name="imageFile"/>
         <button name="submit" type="submit" value="0">Submit</button>
     </form>
+    <img th:src="@{${'/photos/' + photo.fileName}}" alt="Photo upload confirmation"/>
 </body>
 </html>
