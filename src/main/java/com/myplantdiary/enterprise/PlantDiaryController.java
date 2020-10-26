@@ -201,10 +201,12 @@ public class PlantDiaryController {
     }
 
     @GetMapping("/specimensByPlant/{plantId}/")
-    public String specimensByPlant(@PathVariable("plantId") int plantId) {
-        String returnValue= "specimenDetails";
+    public ModelAndView specimensByPlant(@PathVariable("plantId") int plantId) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("specimenDetails");
         List<Specimen> specimens = specimenService.fetchSpecimensByPlantId(plantId);
-        return  returnValue;
+        modelAndView.addObject("specimens", specimens);
+        return  modelAndView;
 
     }
 }
