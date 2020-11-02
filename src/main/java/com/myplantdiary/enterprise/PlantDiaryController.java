@@ -6,6 +6,8 @@ import com.myplantdiary.enterprise.dto.Plant;
 import com.myplantdiary.enterprise.dto.Specimen;
 import com.myplantdiary.enterprise.service.ISpecimenService;
 import okhttp3.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -38,6 +40,8 @@ public class PlantDiaryController {
 
     @Autowired
     ISpecimenService specimenService;
+
+    Logger log = LoggerFactory.getLogger(this.getClass());
 
     /**
      * Handle the root (/) endpoint and return a start page.
@@ -106,10 +110,13 @@ public class PlantDiaryController {
 
     @DeleteMapping("/specimen/{id}/")
     public ResponseEntity deleteSpecimen(@PathVariable("id") int id) {
+        log.debug("Entering delete specimen endpoint");
         try {
             specimenService.delete(id);
+            log.info("Specimen with ID " + id + " was deleted.");
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
+            log.error("Unable to delete specimen with ID: " + id + ", message: " + e.getMessage(), e);
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 

@@ -1,6 +1,7 @@
 package com.myplantdiary.enterprise.dto;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -17,6 +18,7 @@ class Photo {
     private String fileName;
     private String comments;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name="specimen_id")
     private Specimen specimen;
