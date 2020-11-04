@@ -2,6 +2,7 @@ package com.myplantdiary.enterprise.dao;
 
 import com.myplantdiary.enterprise.dto.Photo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,10 +17,14 @@ public class PhotoDAO implements IPhotoDAO {
     @Autowired
     private PhotoRepository photoRepository;
 
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+
     @Override
     public void save(Photo photo) {
         photoRepository.save(photo);
     }
+
 
     @Override
     public void saveImage(MultipartFile imageFile, Photo photo) throws IOException {
@@ -29,7 +34,7 @@ public class PhotoDAO implements IPhotoDAO {
         byte[] bytes = imageFile.getBytes();
         Path path = Paths.get(photo.getPath() + imageFile.getOriginalFilename());
         Files.write(path, bytes);
-
+        kafkaTemplate.send("photoIn", path.normalize().toString());
     }
 
 }
