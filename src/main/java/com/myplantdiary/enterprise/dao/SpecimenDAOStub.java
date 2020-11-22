@@ -1,7 +1,9 @@
 package com.myplantdiary.enterprise.dao;
 
 import com.myplantdiary.enterprise.dto.Specimen;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -10,14 +12,17 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-@Profile("test")
 public class SpecimenDAOStub implements ISpecimenDAO {
+
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     Map<Integer, Specimen> allSpecimens = new HashMap<>();
 
     @Override
     public Specimen save(Specimen specimen) throws Exception {
         allSpecimens.put(specimen.getSpecimenId(), specimen);
+        kafkaTemplate.send("photoin", specimen.getDescription());
         return specimen;
     }
 

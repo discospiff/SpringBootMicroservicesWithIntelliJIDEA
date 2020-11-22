@@ -3,15 +3,9 @@ package com.myplantdiary.enterprise.dto;
 import lombok.Data;
 import lombok.ToString;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name="photos")
 public @Data
 class Photo {
 
-    @Id
-    @GeneratedValue
     private int photoId;
     private String photographer;
     private String path;
@@ -19,7 +13,5 @@ class Photo {
     private String comments;
 
     @ToString.Exclude
-    @ManyToOne
-    @JoinColumn(name="specimen_id")
     private Specimen specimen;
 }
