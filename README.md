@@ -97,7 +97,7 @@ Users can interact with MyPlantDiary using either a set of RESTful service endpo
 
 ## Class Diagram
 
-![MyPlantDiaryClassDiagram](https://user-images.githubusercontent.com/2224876/93275565-40ecd880-f78b-11ea-8030-cd87987b1817.png)
+![My Plant Diary Class Diagram](https://github.com/discospiff/SpringBootMicroservicesWithIntelliJIDEA/blob/master/PlantDiaryClassDiagram.drawio.png)
 
 ### Class Diagram Description 
 
