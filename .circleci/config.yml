@@ -23,6 +23,9 @@ jobs: # a collection of steps
           key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
 
       - run: mvn package # run the actual tests
+      
+      # build and push docker image to docker hub
+      - run: mvn clean compile jib:build -Djib.to.auth.username=$DOCKER_USER -Djib.to.auth.password=$DOCKER_PASS -Dimage=jhasanov/webtest:$CIRCLE_BUILD_NUM
 
       - store_test_results: # uploads the test metadata from the `target/surefire-reports` directory so that it can show up in the CircleCI dashboard.
           # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
